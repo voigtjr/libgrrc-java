@@ -29,9 +29,7 @@ public class PackBot
     
     private float lv = 0;
     
-    // "141.212.203.164" 
-    // "141.212.205.136"
-    private String hostname = "127.0.0.1";
+    private String hostname = "192.168.1.115";
     
     private int port = 3192;
 
@@ -83,6 +81,7 @@ public class PackBot
                 catch (InterruptedException ex)
                 {
                 }
+                pb.shutdown();
             }
         });
         frame.pack();
