@@ -35,6 +35,7 @@ import java.nio.ByteBuffer;
  *         float speed_mps;
  *         float turn_rate_rps;
  *         float brake;
+ *         float flipper_turn_rps;
  * } format_1_drive;
  * </pre>
  * 
@@ -51,7 +52,7 @@ public class GrrcDrivePacket implements GrrcPacket
 {
     private static final float PACKET_TYPE = 1.0f;
 
-    private static final int BUFFER_SIZE = 16; // 4 floats
+    private static final int BUFFER_SIZE = 20; // 5 floats
 
     private final DatagramPacket packet;
 
@@ -63,9 +64,12 @@ public class GrrcDrivePacket implements GrrcPacket
 
     private final int BRAKE_OFFSET = 12;
 
+    private final int FLIPPER_TURN_RPS_OFFSET = 16;
+
     public GrrcDrivePacket(InetAddress address, int port)
     {
         buffer.putFloat(PACKET_TYPE);
+        buffer.putFloat(0);
         buffer.putFloat(0);
         buffer.putFloat(0);
         buffer.putFloat(0);
@@ -92,6 +96,12 @@ public class GrrcDrivePacket implements GrrcPacket
         return this;
     }
 
+    public GrrcDrivePacket setFlipperTurnRps(float flipperTurnRps)
+    {
+        buffer.putFloat(FLIPPER_TURN_RPS_OFFSET, flipperTurnRps);
+        return this;
+    }
+
     public DatagramPacket getPacket()
     {
         return packet;
@@ -101,8 +111,8 @@ public class GrrcDrivePacket implements GrrcPacket
     public String toString()
     {
         buffer.rewind();
-        return String.format("GrrcDrivePacket(%1.2f,%1.2f,%1.2f,%1.2f)", buffer
+        return String.format("GrrcDrivePacket(%1.2f,%1.2f,%1.2f,%1.2f,%1.2f)", buffer
                 .getFloat(), buffer.getFloat(), buffer.getFloat(), buffer
-                .getFloat());
+                .getFloat(), buffer.getFloat());
     }
 }
