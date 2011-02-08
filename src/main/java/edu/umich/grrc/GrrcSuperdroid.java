@@ -259,15 +259,15 @@ public class GrrcSuperdroid
         return fbValues.get(GrrcFeedbackTag.GRRC_FB_THETA);
     }
 
-    public float[] getPos()
+    public double[] getPos()
     {
         return getPos(null);
     }
 
-    public float[] getPos(float[] dest)
+    public double[] getPos(double[] dest)
     {
         if (dest == null)
-            dest = new float[3];
+            dest = new double[3];
 
         if (fbValues.isEmpty())
             return dest;
