@@ -212,6 +212,9 @@ public class GrrcSuperdroid
     private static final GrrcFeedbackTag[] FIELDS = new GrrcFeedbackTag[] {
             GrrcFeedbackTag.GRRC_FB_ENCODER0,
             GrrcFeedbackTag.GRRC_FB_ENCODER1, 
+            GrrcFeedbackTag.GRRC_FB_THETA, 
+            GrrcFeedbackTag.GRRC_FB_ODOM_X, 
+            GrrcFeedbackTag.GRRC_FB_ODOM_Y, 
             };
 
     private static GrrcStreamRequestPacket getStreamRequestPacket(
@@ -246,6 +249,34 @@ public class GrrcSuperdroid
             return 0.0f;
 
         return fbValues.get(GrrcFeedbackTag.GRRC_FB_ENCODER1);
+    }
+    
+    public float getTheta()
+    {
+        if (fbValues.isEmpty())
+            return 0.0f;
+
+        return fbValues.get(GrrcFeedbackTag.GRRC_FB_THETA);
+    }
+
+    public float[] getPos()
+    {
+        return getPos(null);
+    }
+
+    public float[] getPos(float[] dest)
+    {
+        if (dest == null)
+            dest = new float[3];
+
+        if (fbValues.isEmpty())
+            return dest;
+
+        dest[0] = fbValues.get(GrrcFeedbackTag.GRRC_FB_ODOM_X);
+        dest[1] = fbValues.get(GrrcFeedbackTag.GRRC_FB_ODOM_Y);
+        dest[2] = 0;
+
+        return dest;
     }
 
 }
