@@ -256,27 +256,27 @@ public class GrrcSuperdroid
         if (fbValues.isEmpty())
             return 0.0f;
 
-        return fbValues.get(GrrcFeedbackTag.GRRC_FB_THETA);
+        return (float) Math.toRadians(fbValues.get(GrrcFeedbackTag.GRRC_FB_THETA));
     }
 
-    public double[] getPos()
+    public boolean getPos()
     {
         return getPos(null);
     }
 
-    public double[] getPos(double[] dest)
+    public boolean getPos(double[] dest)
     {
         if (dest == null)
             dest = new double[3];
 
         if (fbValues.isEmpty())
-            return dest;
+            return false;
 
         dest[0] = fbValues.get(GrrcFeedbackTag.GRRC_FB_ODOM_X);
         dest[1] = fbValues.get(GrrcFeedbackTag.GRRC_FB_ODOM_Y);
         dest[2] = 0;
 
-        return dest;
+        return true;
     }
 
 }
